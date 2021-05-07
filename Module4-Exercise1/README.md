@@ -1,50 +1,121 @@
-# Module 3 - Exercise 4
-Learning Objective: tSQLt.FakeTable, testing joins
+# Module 4 - Exercise 1
+Learning Objective: CI Pipeline Feedback Loops
 
 Helpful Links:
 - [tSQLt.FakeTable](https://tsqlt.org/user-guide/isolating-dependencies/faketable/)
-- [tSQLt.AssertEmptyTable](https://tsqlt.org/user-guide/assertions/assertemptytable/)
-- [tSQLt.AssertEqualsTable](https://tsqlt.org/user-guide/assertions/assertequalstable/)
-- [CREATE VIEW (Transact-SQL)](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-view-transact-sql?view=sql-server-ver15)
-- [COUNT (Transact-SQL)](https://docs.microsoft.com/en-us/sql/t-sql/functions/count-transact-sql?view=sql-server-ver15)
-- [SELECT - GROUP BY- Transact-SQL](https://docs.microsoft.com/en-us/sql/t-sql/queries/select-group-by-transact-sql?view=sql-server-ver15)
-- [ISNULL (Transact-SQL)](https://docs.microsoft.com/en-us/sql/t-sql/functions/isnull-transact-sql?view=sql-server-ver15)
+- [Introduction to GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions)
 
 ## Instructions for Exercise 4
 
-The goal of this exercise is write a simple view called, "HotelReservationCount", and enough tests to cover its functionality.
+The goal of this exercise is to use GitHub Actions to stand up a simple CI Pipeline and debug your code.
 
-The Marketing department needs a count of reservations by hotel to better allocate marketing efforts.
+Your colleague has gone on vacation (suddenly) and left you with their code. A couple of problems have been reported by end-users. It is your job to find those problems and fix them.
 
-Write a view that returns the number of reservations by hotel. The four columns this view returns are: HotelId, HotelName, HotelState, and ReservationCount:
+Set up the GitHub Actions workflow as a simple CI Pipeline; identify the unsuccessful tests; and make the required changes to get a "green" build:
 
-1. Open the Module4-Exercise1 solution in SSMS
-1. There are three projects -- one for the tests, one for the code, and one for tSQLt
-   1. M4-Exercise1 (code)
-   1. M4-Exercise1-Tests (tests)
-   1. tSQLt
-1. First create (or recreate) the database by following these steps:
-   1. Click on the M4-Exercise1-Tests project to highlight it.
-   1. Run Tools --> Build. This will drop and recreate the database and install and execute shell tests.
-   1. Please note that the test will fail with the message, "TO DO".
-1. Create a file for the HotelReservationCount view in the M4-Exercise1 project called, HotelReservationCount.view.sql
-1. Add the HotelReservationCount.view.sql file to the entries in build.sql
-
-Write the required code and enough tests.
-Think about how to best test this and discuss with your partner before starting.
-
-## Instructions for Advanced Exercise
-
-The goal of this advanced exercise is write a view called, "StateYearReservationCount", and enough tests to cover its functionality.
-
-The Finance department needs to see an overview of how reservations are performing by state and year.
-
-Write a view that returns the number of reservations by state and year. The three columns this view returns are: ReservationYear, ReservationState, and ReservationCount:
-
-1. Create a file for the StateYearReservationCount view in the M4-Exercise1 project called, StateYearReservationCount.view.sql
-1. Add the StateYearReservationCount.view.sql file to the entries in build.sql
-1. We have already created for you the Reports_StateYearReservationCount_Tests.class.sql file for your unit tests.
-
-Write the required code and enough tests.
-Think about how to best test this and discuss with your partner before starting.
-
+1. Make sure that your forked repository is up to date. There should be both a ".github/workflows" and a "Module4-Exercise1" folder. Now find the "Actions" tab header and click on it.
+  |actions|
+  |-|
+  |![image](https://user-images.githubusercontent.com/298017/116835595-2c7e1480-ab91-11eb-9f6e-3cd0ec3a6536.png)|
+  ||
+1. Click on the "I understand my workflows, go ahead and enable them" button to enable worfklows for your repository.
+  |enable actions|
+  |-|
+  |![image](https://user-images.githubusercontent.com/298017/116835634-57686880-ab91-11eb-9f14-951d5b9dab15.png)|
+  ||
+1. Create a repository secret to allow you to use on-demand SQL Instances in Redgate Spawn.
+   1. Click on the "Settings" tabe header.
+      |settings|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835661-6cdd9280-ab91-11eb-861e-2091791c7681.png)|
+      ||
+   1. Now click on the "Secrets" left navigation option.
+      |secrets|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835680-82eb5300-ab91-11eb-9145-fb1a4b56afc3.png)|
+      ||
+   1. Click the "New repository secret" button.
+      |new secret|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835693-972f5000-ab91-11eb-9b0f-622ad4c80728.png)|
+      ||
+   1. Enter "SPAWNCTL_ACCESS_TOKEN" for the Name and the provided access token for the Value, and click "Add Secret".
+      |SPAWNCTL_ACCESS_TOKEN|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835743-d1005680-ab91-11eb-8c2d-3e57b0a4335f.png)|
+      ||
+   1. Confirm that you have a "SPAWNCTL_ACCESS_TOKEN" in your Repository Secrets list. Then click on the "Actions" tab header.
+      |back to actions|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835768-ef665200-ab91-11eb-951b-29b71ca85ae5.png)|
+      ||
+1. Run the GitHub Actions workflow.
+   1. Find the "Module 4 Exercise 1 CI Pipeline" in the list of Workflows and click on it.
+      |CI Pipeline|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835826-263c6800-ab92-11eb-858a-ef2355429fb5.png)|
+      ||
+   1. Click on "Run workflow".
+      |run workflow|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835842-381e0b00-ab92-11eb-9ade-92b05c3af8a2.png)|
+      ||
+   1. Confirm that the branch is "main" and click the green "Run workflow" button.
+      |run workflow for real|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835867-4ff58f00-ab92-11eb-82dd-d4cd736a9436.png)|
+      ||
+1. Find and inspect the workflow logs.
+   1. Click on the workflow run link.
+      |now running, get summary|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116836648-55a0a400-ab95-11eb-9cfe-113a77d8a585.png)|
+      ||
+   1. Note that the job "build-and-test" is both in the left navigation and summary. Click on either.
+      |get details|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835950-be3a5180-ab92-11eb-8e57-0c70e8fcb287.png)|
+      ||
+   1. The job log is displayed with a list of steps.
+      |details|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116835969-d4481200-ab92-11eb-8b07-ad43f6494bb8.png)|
+      ||
+   1. After the job finishes, return to the Summary page for the workflow run by clicking on the "Summary" link in the left-navigation.
+      |return to summary|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116836010-f9d51b80-ab92-11eb-8438-de100ee5c225.png)|
+      ||
+1. Identify unsuccessful tests.
+   1. Note that the Annotations section of the Summary will show the tSQLt summary information, including the count of unsuccessful tests. If there are failing tests (and really there should be) click back into the job.
+      |tests are failing|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116836210-a44d3e80-ab93-11eb-9bca-ace792df6617.png)|
+      ||
+   1. Expand the logs for the step which deploys the codes and executes the test. It is called, "Deploy Code to SQL Server Instance on Spawn and Run Tests".
+      |get build output|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116836233-ba5aff00-ab93-11eb-859d-7a3a6aaff09e.png)|
+      ||
+1. For each unsuccessful test:
+   1. Scroll to the bottom of the logs to see which tests are unsuccessful.
+      |a failing test|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116836829-0b6bf280-ab96-11eb-874a-040b952a595b.png)|
+      ||
+   1. Copy the test name without the brackets and schema name, and paste it into the search box at the top right. This should move the cursor to the test's output. If it doesn't, you can navigate to the next search result with the arrows to the right of the search box.
+      |find the test output|
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116836606-25590580-ab95-11eb-8103-c1683d86522c.png)|
+      ||
+   1. Based on the output you see, make the necessary changes to tests and/or code to fix the problem.
+      ||
+      |-|
+      ||
+      ||
+1. Confirm that you have fixed all the issues by checking in your code and tests and re-running the pipeline. 
+   1. You are done once you get a 🟢 Success 🟢 build.
+      ||
+      |-|
+      |![image](https://user-images.githubusercontent.com/298017/116953604-b09cce80-ac5b-11eb-8cdf-ec553bde881a.png)|
+      ||
