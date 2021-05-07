@@ -18,6 +18,8 @@ jobs:
           & "${{ github.workspace }}\spawnctl.exe" version
           
           & "${{ github.workspace }}\spawnctl.exe" auth --debug
+
+          & "${{ github.workspace }}\spawnctl.exe" onboard
           
           & "${{ github.workspace }}\spawnctl.exe" create access-token --purpose "dataplatform-devops-exercises/.github/workflows/token.yml"
          
