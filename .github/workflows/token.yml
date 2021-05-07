@@ -17,7 +17,7 @@ jobs:
           Invoke-WebRequest -Uri "https://run.spawn.cc/spawnctl.exe" -UseBasicParsing -OutFile "${{ github.workspace }}\spawnctl.exe"
           & "${{ github.workspace }}\spawnctl.exe" version
           
-          & "${{ github.workspace }}\spawnctl.exe" auth
+          & "${{ github.workspace }}\spawnctl.exe" auth --debug
           
           & "${{ github.workspace }}\spawnctl.exe" get all
          
