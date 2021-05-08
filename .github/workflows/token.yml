@@ -1,4 +1,4 @@
-name: Module 4 Exercise 1 CI Pipeline
+name: Token Generator
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
     
     steps:
 
-      - name: Install spawnctl
+      - name: Install spawnctl and generate token
         shell: pwsh
         run: |
           echo "Downloading and installing spawnctl..."
